@@ -1,6 +1,6 @@
 import head from "../assets/headd.png";
 
-export default function Sidebar({ selectedType, setSelectedType }) {
+export default function Sidebar({ selectedType, setSelectedType, }: { selectedType: string; setSelectedType: (type: string) => void; }) {
   const categories = ["all", "graphic design", "type design", "photography"];
 
   return (

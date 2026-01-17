@@ -1,6 +1,4 @@
-import React from "react";
-
-export default function Projects({ selectedType }) {
+export default function Projects({ selectedType }: { selectedType: string }) {
   const projects = [
     {
       id: 1,
@@ -27,7 +25,7 @@ export default function Projects({ selectedType }) {
       ? projects
       : projects.filter((p) => p.type === selectedType);
 
-  const openProjectWindow = (id) => {
+  const openProjectWindow = (id: number) => {
     window.open(
       `/projects/${id}`,
       "projectWindow",
