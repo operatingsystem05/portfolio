@@ -31,7 +31,7 @@ export default function Projects({ selectedType }) {
     window.open(
       `/projects/${id}`,
       "projectWindow",
-      "width=500,height=800,menubar=no,toolbar=no,location=no,status=no"
+      "width=500,height=800,menubar=no,toolbar=no,location=no,status=no",
     );
   };
 

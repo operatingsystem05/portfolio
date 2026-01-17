@@ -1,10 +1,10 @@
 import head from "../assets/headd.png";
 
-export default function Sidebar({ selectedType, setSelectedType }) { const categories = ["all", "graphic design", "type design", "photography"];
+export default function Sidebar({ selectedType, setSelectedType }) {
+  const categories = ["all", "graphic design", "type design", "photography"];
 
   return (
     <div className="w-[230px] bg-white flex flex-col justify-between h-full px-4 py-8">
-      
       {/* TOP CONTENT */}
       <div>
         <img
@@ -25,26 +25,38 @@ export default function Sidebar({ selectedType, setSelectedType }) { const categ
 
       {/* CATEGORY FILTER */}
       <div className="mt-8 flex flex-col gap-2 text-md font-semibold text-left">
-        {categories.map(cat => (
-          <button 
-          key={cat} 
-          onClick={() => setSelectedType(cat)}
-          className="flex items-center gap-2 group uppercase"
-        >
-          <span className={`w-3 h-3 border border-black ${ selectedType === cat ? "bg-black" : "bg-transparent" }`} />
-          <span className={`group-hover ${ selectedType === cat ? "font-bold" : "text-black" }`} >
-            {cat}
-          </span>
-        </button>
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedType(cat)}
+            className="flex items-center gap-2 group uppercase"
+          >
+            <span
+              className={`w-3 h-3 border border-black ${selectedType === cat ? "bg-black" : "bg-transparent"}`}
+            />
+            <span
+              className={`group-hover ${selectedType === cat ? "font-bold" : "text-black"}`}
+            >
+              {cat}
+            </span>
+          </button>
         ))}
       </div>
 
       {/* Links */}
       <div className="flex flex-col gap-1 text-md font-semibold mt-8">
-        <a href="https://instagram.com" target="_blank" className="hover:underline">
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          className="hover:underline"
+        >
           instagram
         </a>
-        <a href="https://github.com" target="_blank" className="hover:underline">
+        <a
+          href="https://github.com"
+          target="_blank"
+          className="hover:underline"
+        >
           github
         </a>
         <a href="https://are.na" target="_blank" className="hover:underline">
@@ -54,7 +66,6 @@ export default function Sidebar({ selectedType, setSelectedType }) { const categ
           email
         </a>
       </div>
-
     </div>
   );
 }
