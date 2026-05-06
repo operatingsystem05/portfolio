@@ -5,5 +5,37 @@
 body {
   text-transform: lowercase;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 0.5rem;
+}
+
+/* Global spacing + sidebar variables */
+:root {
+  --sidebar-width: 220px;
+  --padding: 0.5rem;
+}
+
+/* Medium screens */
+@media (min-width: 600px) {
+  :root {
+    --sidebar-width: 260px;
+    --padding: 0.2rem;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  :root {
+    --sidebar-width: 300px;
+    --padding: 0.1rem;
+  }
+}
+
+.sidebar { width: var(--sidebar-width); padding: var(--padding); }
+
+.container {
+  padding: var(--padding);
+}
+
+.profile-link {
+  text-decoration: none;
+  color: inherit;
 }

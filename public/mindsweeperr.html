@@ -1,0 +1,439 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Sweep My Mind</title>
+<style type="text/css">
+body {
+  margin: 0;
+  padding: 8px;
+  background-color: #c0c0c0;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.outer-border {
+  border-top: 3px solid #ffffff;
+  border-left: 3px solid #ffffff;
+  border-right: 3px solid #808080;
+  border-bottom: 3px solid #808080;
+  padding: 6px;
+  background-color: #c0c0c0;
+  width: 794px;
+}
+
+.inset-box {
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  background-color: #c0c0c0;
+}
+
+.lcd-box {
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+  background-color: #000000;
+  padding: 4px 6px;
+  color: #00cc00;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1.1;
+  text-align: right;
+}
+
+.restart-btn {
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  background-color: #c0c0c0;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0;
+}
+
+.poem-bottom {
+  color: #4d4a4a;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 90px;
+  padding: 6px 8px;
+  text-align: left;
+}
+</style>
+
+<script type="text/javascript">
+var POEMS = [
+  "The alien occupies a space between the supernatural and the bureaucratic.",
+  "In popular imagination, the alien is otherworldly, unfamiliar, estranged.",
+  "In legal language, the term alien performs a similar function.",
+  "It marks the migrant as someone fundamentally outside the category of the /national/ self.",
+  "It transforms one into a classification that is both present and not fully recognized.",
+  "To be labeled an alien is to be positioned as a being whose origins are elsewhere,",
+  ", whose presence requires justification,",
+  ", whose belonging is always provisional.",
+  "This language does not merely describe.",
+  "It produces a form of estrangement that shapes how migrants are perceived and how they perceive themselves.",
+  "The alien becomes a figure suspended between worlds,",
+  ", not because of inherent difference,",
+  ", but because the law constructs them as such."
+];
+
+var COLS = 20;
+var ROWS = 15;
+var TOTAL = COLS * ROWS;
+var NUM_ALIENS = 35;
+
+var board = [];
+var revealed = [];
+var gameOver = false;
+var gameWon = false;
+var firstClick = true;
+var poemLine = 0;
+var safeClicks = 0;
+
+function idx(r, c) { return r * COLS + c; }
+
+function initBoard() {
+  board = [];
+  revealed = [];
+  gameOver = false;
+  gameWon = false;
+  firstClick = true;
+  poemLine = 0;
+  safeClicks = 0;
+
+  var i;
+  for (i = 0; i < TOTAL; i++) {
+    board.push(0);
+    revealed.push(false);
+  }
+
+  var leftPoem = document.getElementById('poem-left');
+  var rightPoem = document.getElementById('poem-right');
+  if (leftPoem) leftPoem.innerHTML = '&nbsp;';
+  if (rightPoem) rightPoem.innerHTML = '&nbsp;';
+
+  updateCounter();
+
+  var rbtn = document.getElementById('restart-img');
+  if (rbtn) rbtn.src = 'spaceship1.png';
+
+  var bottomPoem = document.getElementById('poem-bottom');
+  if (bottomPoem) bottomPoem.innerHTML = '';
+
+  renderGrid();
+}
+
+function placeAliens(safeIdx) {
+  var placed = 0;
+  var tries = 0;
+  var pos, pr, pc;
+  var sr = Math.floor(safeIdx / COLS);
+  var sc = safeIdx % COLS;
+  while (placed < NUM_ALIENS && tries < 10000) {
+    tries++;
+    pos = Math.floor(Math.random() * TOTAL);
+    pr = Math.floor(pos / COLS);
+    pc = pos % COLS;
+    if (Math.abs(pr - sr) <= 1 && Math.abs(pc - sc) <= 1) continue;
+    if (board[pos] === -1) continue;
+    board[pos] = -1;
+    placed++;
+  }
+
+  var r, c, nr, nc, count;
+  for (r = 0; r < ROWS; r++) {
+    for (c = 0; c < COLS; c++) {
+      if (board[idx(r, c)] === -1) continue;
+      count = 0;
+      for (nr = r - 1; nr <= r + 1; nr++) {
+        for (nc = c - 1; nc <= c + 1; nc++) {
+          if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS) {
+            if (board[idx(nr, nc)] === -1) count++;
+          }
+        }
+      }
+      board[idx(r, c)] = count;
+    }
+  }
+}
+
+function renderGrid() {
+  var grid = document.getElementById('grid-table');
+  if (!grid) return;
+  var html = '';
+  var r, c, i;
+  for (r = 0; r < ROWS; r++) {
+    html += '<tr>';
+    for (c = 0; c < COLS; c++) {
+      i = idx(r, c);
+      html += '<td style="padding:0;margin:0;">';
+      html += '<button style="width:22px;height:22px;border-top:2px solid #ffffff;border-left:2px solid #ffffff;border-right:2px solid #808080;border-bottom:2px solid #808080;background-color:#c0c0c0;font-size:11px;font-weight:bold;font-family:Courier New,Courier,monospace;cursor:pointer;padding:0;text-align:center;line-height:22px;" id="cell-' + i + '" onclick="clickCell(' + i + ')" oncontextmenu="flagCell(' + i + ');return false;">&#160;</button>';
+      html += '</td>';
+    }
+    html += '</tr>';
+  }
+  grid.innerHTML = html;
+}
+
+function numColor(n) {
+  if (n === 1) return '#0000cc';
+  if (n === 2) return '#007700';
+  if (n === 3) return '#cc0000';
+  if (n === 4) return '#000077';
+  if (n === 5) return '#770000';
+  if (n === 6) return '#007777';
+  if (n === 7) return '#000000';
+  if (n === 8) return '#777777';
+  return '#000000';
+}
+
+function revealCell(i) {
+  if (revealed[i]) return;
+  revealed[i] = true;
+  var cell = document.getElementById('cell-' + i);
+  if (!cell) return;
+
+  var val = board[i];
+  var inner = '';
+
+  if (val === -1) {
+    inner = '<img src="aliensad.png" width="16" height="16" border="0" style="display:block;margin:3px auto 0 auto;">';
+  } else if (val > 0) {
+    inner = '<font color="' + numColor(val) + '">' + val + '</font>';
+  } else {
+    inner = '&#160;';
+  }
+
+  cell.outerHTML = '<td style="padding:0;margin:0;"><div style="width:22px;height:22px;border:1px solid #808080;background-color:#c0c0c0;font-size:11px;font-weight:bold;font-family:Courier New,Courier,monospace;text-align:center;line-height:22px;">' + inner + '</div></td>';
+}
+
+function floodReveal(i) {
+  if (i < 0 || i >= TOTAL) return;
+  if (revealed[i]) return;
+  if (board[i] === -1) return;
+  revealCell(i);
+  if (board[i] === 0) {
+    var r = Math.floor(i / COLS);
+    var c = i % COLS;
+    var nr, nc;
+    for (nr = r - 1; nr <= r + 1; nr++) {
+      for (nc = c - 1; nc <= c + 1; nc++) {
+        if (nr >= 0 && nr < ROWS && nc >= 0 && nc < COLS) {
+          if (!(nr === r && nc === c)) {
+            floodReveal(idx(nr, nc));
+          }
+        }
+      }
+    }
+  }
+}
+
+function updateCounter() {
+  var lcdEl = document.getElementById('lcd-counter');
+  if (lcdEl) {
+    lcdEl.innerHTML = poemLine + '/13<br>Lines';
+  }
+}
+
+function updateTopPoem() {
+  var leftPoem = document.getElementById('poem-left');
+  var rightPoem = document.getElementById('poem-right');
+  if (!leftPoem || !rightPoem) return;
+
+  if (poemLine === 0) {
+    leftPoem.innerHTML = '&nbsp;';
+    rightPoem.innerHTML = '&nbsp;';
+  } else if (poemLine === 1) {
+    leftPoem.innerHTML = '<font color="#0d620d">' + escHtml(POEMS[0]) + '</font>';
+    rightPoem.innerHTML = '&nbsp;';
+  } else {
+    leftPoem.innerHTML = '<font color="#757575">' + escHtml(POEMS[poemLine - 2]) + '</font>';
+    rightPoem.innerHTML = '<font color="#0d620d">' + escHtml(POEMS[poemLine - 1]) + '</font>';
+  }
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function showBottomPoem(lostAtLine) {
+  var bottomPoem = document.getElementById('poem-bottom');
+  if (!bottomPoem) return;
+  var html = '';
+  var i;
+  for (i = 0; i < POEMS.length; i++) {
+    if (i === lostAtLine) {
+      html += '<font color="#0d620d">' + escHtml(POEMS[i]) + '</font><br>';
+    } else {
+      html += '<font color="#4d4a4a">' + escHtml(POEMS[i]) + '</font><br>';
+    }
+  }
+  bottomPoem.innerHTML = html;
+}
+
+function showWinPoem() {
+  var bottomPoem = document.getElementById('poem-bottom');
+  if (!bottomPoem) return;
+  var html = '';
+  var i;
+  for (i = 0; i < POEMS.length; i++) {
+    html += '<font color="#4d4a4a">' + escHtml(POEMS[i]) + '</font><br>';
+  }
+  bottomPoem.innerHTML = html;
+}
+
+function clickCell(i) {
+  if (gameOver || gameWon) return;
+  if (revealed[i]) return;
+
+  if (firstClick) {
+    firstClick = false;
+    placeAliens(i);
+  }
+
+  if (board[i] === -1) {
+    revealCell(i);
+    revealAllAliens(i);
+    gameOver = true;
+    var rbtn = document.getElementById('restart-img');
+    if (rbtn) rbtn.src = 'spaceship2.png';
+    showBottomPoem(poemLine);
+    var leftPoem = document.getElementById('poem-left');
+    var rightPoem = document.getElementById('poem-right');
+    if (leftPoem) leftPoem.innerHTML = '&nbsp;';
+    if (rightPoem) rightPoem.innerHTML = '&nbsp;';
+    return;
+  }
+
+  floodReveal(i);
+
+  safeClicks++;
+  if (poemLine < 13) {
+    poemLine++;
+    updateCounter();
+    updateTopPoem();
+  }
+
+  var allSafe = true;
+  var j;
+  for (j = 0; j < TOTAL; j++) {
+    if (board[j] !== -1 && !revealed[j]) {
+      allSafe = false;
+      break;
+    }
+  }
+  if (allSafe) {
+    gameWon = true;
+    showWinPoem();
+    var leftPoem2 = document.getElementById('poem-left');
+    var rightPoem2 = document.getElementById('poem-right');
+    if (leftPoem2) leftPoem2.innerHTML = '&nbsp;';
+    if (rightPoem2) rightPoem2.innerHTML = '&nbsp;';
+  }
+}
+
+function revealAllAliens(clickedIdx) {
+  var j;
+  for (j = 0; j < TOTAL; j++) {
+    if (board[j] === -1 && j !== clickedIdx) {
+      revealed[j] = true;
+      var cell = document.getElementById('cell-' + j);
+      if (cell) {
+        cell.outerHTML = '<td style="padding:0;margin:0;"><div style="width:22px;height:22px;border:1px solid #808080;background-color:#c0c0c0;text-align:center;line-height:22px;"><img src="alienhappy.png" width="16" height="16" border="0" style="display:block;margin:3px auto 0 auto;"></div></td>';
+      }
+    }
+  }
+}
+
+function flagCell(i) {
+  if (gameOver || gameWon) return;
+  if (revealed[i]) return;
+  var cell = document.getElementById('cell-' + i);
+  if (!cell) return;
+  if (cell.getAttribute('data-flagged') === '1') {
+    cell.setAttribute('data-flagged', '0');
+    cell.innerHTML = '&#160;';
+  } else {
+    cell.setAttribute('data-flagged', '1');
+    cell.innerHTML = '<font color="red">!</font>';
+  }
+}
+
+function restartGame() {
+  initBoard();
+}
+
+window.onload = function() {
+  initBoard();
+};
+</script>
+</head>
+<body>
+
+<div class="outer-border">
+
+  <!-- TOP BAR -->
+  <div class="inset-box" style="padding:4px;margin-bottom:8px;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr valign="middle">
+
+        <!-- LEFT POEM -->
+        <td valign="middle" style="padding-left:6px;width:310px;">
+          <div style="width:310px;height:30px;overflow:hidden;font-family:'Courier New',Courier,monospace;font-size:11px;line-height:15px;text-align:left;">
+            <span id="poem-left">&nbsp;</span>
+          </div>
+        </td>
+
+        <!-- RESTART BUTTON -->
+        <td width="56" align="center" valign="middle">
+          <table cellpadding="0" cellspacing="0" border="0" width="42" height="42">
+            <tr>
+              <td align="center" valign="middle" class="restart-btn" onclick="restartGame()">
+                <img id="restart-img" src="spaceship1.png" width="30" height="30" border="0">
+              </td>
+            </tr>
+          </table>
+        </td>
+
+        <!-- RIGHT LINE -->
+        <td valign="middle" style="padding-left:8px;padding-right:6px;">
+          <div style="height:30px;overflow:hidden;font-family:'Courier New',Courier,monospace;font-size:11px;line-height:15px;text-align:left;">
+            <span id="poem-right">&nbsp;</span>
+          </div>
+        </td>
+
+        <!-- LCD COUNTER -->
+        <td width="72" align="right" valign="middle">
+          <div class="lcd-box" id="lcd-counter">0/13<br>Lines</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- GRID -->
+  <div class="inset-box" style="margin-bottom:8px;padding:4px;text-align:center;">
+    <table id="grid-table" cellpadding="0" cellspacing="1" border="0" bgcolor="#808080" align="center">
+    </table>
+  </div>
+
+  <!-- BOTTOM POEM CONTAINER -->
+  <div class="inset-box" style="padding:0;">
+    <div class="poem-bottom" id="poem-bottom"></div>
+  </div>
+
+</div>
+
+</body>
+</html>

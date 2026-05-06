@@ -1,0 +1,1285 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Coming+Soon&family=Special+Elite&family=Permanent+Marker&family=Caveat:wght@400;700&family=Press+Start+2P&display=swap');
+
+  * { margin: 0; padding: 0; }
+  article, aside, header, footer, nav, section { display: block; }
+
+  body {
+    overflow-x: hidden;
+    background-color: #1a0a2e;
+    background-image: url('emo-background-1471213790.jpg');
+    background-repeat: repeat;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Coming Soon', cursive;
+    color: #fff;
+    min-height: 600px;
+  }
+
+  /* ===== LAYOUT ===== */
+  .wrapper { position: relative; z-index: 1; width: 960px; margin: 0 auto; padding: 0; zoom: 1; }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    text-align: center;
+    padding: 0 0 10px;
+    border-bottom: 7px dotted #ffffff00;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .header-banner {
+    width: 100%;
+    height: 160px;
+    background: #1a004d;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #9b59b6;
+    margin-bottom: 8px;
+  }
+  .header-banner canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  .header-banner-text {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    text-align: center;
+    pointer-events: none;
+  }
+  .header-banner-text .subtitle {
+    font-family: 'Coming Soon', cursive;
+    color: #e0b0ff;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 8px #bf00ff;
+    animation: flicker 4s infinite;
+  }
+  @keyframes flicker { 0%,95%,100%{opacity:1} 96%,99%{opacity:0.3} }
+
+  .blog-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 42px;
+    color: #ff69b4;
+    background: none;
+    margin: 4px 0 2px;
+  }
+  @keyframes shimmer { 0%{background-position:0%} 100%{background-position:300%} }
+
+  .blog-tagline {
+    font-family: 'Coming Soon', cursive;
+    font-size: 13px;
+    color: #ffb3de;
+    letter-spacing: 2px;
+    animation: blink 1.5s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ===== NAV ===== */
+  .nav-bar {
+    text-align: center;
+    padding: 8px 0;
+    margin-bottom: 16px;
+  }
+  .nav-bar a {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: #0ff;
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid #0ff;
+    padding: 5px 10px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 2px 3px;
+  }
+
+  /* ===== MAIN GRID ===== */
+  .main-grid {
+    width: 100%;
+  }
+  .main-grid-table {
+    width: 960px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+  }
+  .main-grid-table td {
+    vertical-align: top;
+    padding: 0;
+  }
+  .sidebar { width: 150px; }
+  .posts-area { width: 710px; padding: 0; }
+  .sidebar-right { width: 100px; }
+
+  /* ===== POSTS ===== */
+  .post-card {
+    background: rgb(0, 0, 0);
+    border: 2px solid #000000;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+    zoom: 1;
+  }
+  .post-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: rgb(0, 0, 0);
+    background-size: 300%;
+  }
+
+  .post-header {
+    padding: 12px 16px 8px;
+    background: #000;
+    border-bottom: 1px dashed rgba(155,89,182,0.4);
+    zoom: 1;
+  }
+  .post-header:after { content: ''; display: block; clear: both; }
+  .post-title-link {
+    font-family: helvetica, cursive;
+    font-size: 20px;
+    color: #ff69b4;
+    cursor: pointer;
+    text-decoration: none;
+    background: #000;
+    border: none;
+    text-align: left;
+    padding: 0;
+    float: left;
+  }
+  .post-title-link:hover { color: #ff9de2; }
+  .post-date-link {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: #9b59b6;
+    cursor: pointer;
+    text-decoration: underline;
+    background: #000;
+    border: none;
+    padding: 0;
+    white-space: nowrap;
+    float: right;
+  }
+  .post-date-link:hover { color: #da70d6; }
+
+  .post-body { padding: 14px 16px 16px; line-height: 1.7; background: #000; }
+
+  .post-footer {
+    padding: 6px 16px 10px;
+    zoom: 1;
+  }
+  .post-footer:after { content: ''; display: block; clear: both; }
+  .post-tag {
+    font-family: verdana;
+    font-size: 11px;
+    color: #0ff;
+    border: 1px solid #0ff;
+    padding: 2px 8px;
+    display: inline;
+    margin-right: 8px;
+  }
+  .post-mood {
+    font-size: 11px;
+    color: #da70d6;
+    font-family: verdana;
+    display: inline;
+  }
+
+  /* ===== POST 1 - Coming Soon style ===== */
+  .p1-body {     font-family: verdana;    font-size: 14px; color: #e0c8f0; }
+  .p1-body .highlight { color: #ff69b4; font-weight: bold; }
+  .p1-body .strike { text-decoration: line-through; color: #888; }
+
+  /* ===== POST 2 - Special Elite ===== */
+  .p2-body { font-family: 'Special Elite', cursive; font-size: 13px; color: #d4b896; line-height: 1.8; }
+  .p2-body .caps { text-transform: uppercase; letter-spacing: 3px; font-size: 11px; color: #9b7; }
+  .p2-body .quote { border-left: 3px solid #9b59b6; padding-left: 12px; margin: 10px 0; color: #caa; font-style: italic; }
+
+  /* ===== POST 3 - Caveat handwriting ===== */
+  .p3-body { font-family: 'Caveat', cursive; font-size: 17px; color: #ffd6e8; }
+  .p3-body .big { font-size: 26px; color: #ff69b4; }
+  .p3-body .small { font-size: 13px; color: #aaa; }
+
+  /* ===== POST 4 ===== */
+  .p4-body { font-family: 'Coming Soon', cursive; font-size: 13px; color: #b8d4ff; }
+  .p4-body .list-item { padding: 4px 0; padding-left: 16px; position: relative; }
+  .p4-body .list-item::before { content: '-'; position: absolute; left: 0; color: #ff69b4; }
+  .p4-body .green { color: #7fff00; }
+  .p4-body .red { color: #ff6b6b; }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    background: #000;
+    font-family: verdana;
+  }
+  .sidebar-right {
+    background: #000;
+    font-family: verdana;
+  }
+  .sidebar-widget {
+    background: #000;
+    font-family: verdana;
+    zoom: 1;
+    position: relative;
+  }
+  .widget-title {
+    background: #ff1174;
+    font-family: verdana;
+    font-size: 8px;
+    color: #fff;
+    padding: 8px 12px;
+    letter-spacing: 1px;
+    zoom: 1;
+    position: relative;
+    z-index: 2;
+  }
+  .widget-body { padding: 12px; }
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #10bc3b;
+    background-image: url('Screenshot.png');
+    background-position: 45% 60%;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+  }
+  .profile-desc {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #d6b7e8;
+  }
+
+  /* Music player */
+  .music-player {
+    background: rgba(0,0,0,0.5);
+    border-radius: 6px;
+    padding: 8px;
+    border: 1px solid #333;
+  }
+  .music-track { font-size: 11px; color: #0ff; margin-bottom: 6px; white-space: normal; overflow: hidden; width: 100%; }
+  .music-track .track-name { display: block; word-wrap: break-word; }
+  @keyframes marquee { 0%{transform:translateX(100%)} 100%{transform:translateX(-200%)} }
+  .music-controls { text-align: center; }
+  .music-btn { background: none; border: 1px solid #555; color: #da70d6; padding: 2px 8px; border-radius: 3px; cursor: pointer; font-size: 12px; }
+  .music-btn:hover { background: rgba(218,112,214,0.2); }
+  .music-status { font-family: 'Press Start 2P', monospace; font-size: 7px; color: #7fff00; margin-top: 5px; text-align: center; }
+  .music-status.paused { color: #ff6b6b; }
+
+  /* Archive */
+  .archive-list { list-style: none; }
+  .archive-list li { margin-bottom: 4px; }
+  .archive-list a {
+    font-size: 12px;
+    color: #da70d6;
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+    zoom: 1;
+  }
+  .archive-list a:after { content: ''; display: block; clear: both; }
+ .button { background-color: #ffffff; color: #000000; border: 1px solid #000000} .archive-list a:hover { color: #ff69b4; text-decoration: underline; }
+  .archive-count { color: #666; font-size: 11px; float: right; }
+
+  /* Mood status */
+  .mood-box { text-align: center; }
+  .mood-label { font-size: 12px; color: #9b59b6; display: block; margin-bottom: 4px; }
+  .mood-text { font-family: 'Coming Soon', cursive; font-size: 12px; color: #ffb3de; }
+  .mood-song { font-size: 11px; color: #888; margin-top: 4px; font-style: italic; }
+
+  .guestbook-form {
+    zoom: 1;
+  }
+  .guestbook-form input,
+  .guestbook-form select,
+  .guestbook-form button {
+    width: 95%;
+    background: #111;
+    color: #eee;
+    border: 1px solid #6f4c8f;
+    padding: 4px;
+    font-family: verdana;
+    font-size: 12px;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .guestbook-form button {
+    cursor: pointer;
+    background: rgba(155,89,182,0.25);
+  }
+  .guestbook-form button:hover {
+    background: rgba(155,89,182,0.45);
+  }
+  .guestbook-error {
+    margin-top: 6px;
+    font-size: 11px;
+    color: #ff6b6b;
+    min-height: 12px;
+  }
+  .guestbook-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+  .guestbook-list li {
+    background: #111;
+    border-left: 3px solid #9b59b6;
+    padding: 6px 8px;
+    font-size: 12px;
+    zoom: 1;
+    margin-bottom: 6px;
+  }
+  .guestbook-list .stamp {
+    display: block;
+    color: #b79bcf;
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  .info-list {
+    font-size: 11px;
+    color: #da70d6;
+    line-height: 1.8;
+  }
+  .info-list span {
+    color: #fff;
+  }
+
+  /* Visitor counter */
+  .counter-display {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 16px;
+    color: #7fff00;
+    text-align: center;
+    letter-spacing: 4px;
+    background: #000;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #3a3;
+    text-shadow: 0 0 10px #0f0;
+  }
+  .counter-label { font-size: 9px; color: #888; text-align: center; margin-top: 4px; font-family: 'Press Start 2P', monospace; }
+  .info-grid { font-size: 11px; line-height: 1.7; color: #d6b7e8; }
+  .info-grid .label { color: #7fff00; }
+
+  /* Quiz */
+  .quiz-result { text-align: center; font-size: 14px; margin-bottom: 4px; }
+  .quiz-text { font-size: 11px; color: #da70d6; text-align: center; line-height: 1.5; }
+
+  /* ===== SINGLE POST VIEW ===== */
+  #single-post-view {
+    display: none;
+    background: rgba(20,0,40,0.95);
+    border: 2px solid #ff69b4;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  #single-post-view.active { display: block; }
+  .back-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: #0ff;
+    background: none;
+    border: 1px solid #0ff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+  .back-btn:hover { background: rgba(0,255,255,0.15); }
+  .single-post-title { font-family: 'Permanent Marker', cursive; font-size: 28px; color: #ff69b4; margin-bottom: 6px; text-shadow: 0 0 12px rgba(255,105,180,0.7); }
+  .single-post-meta { font-family: 'Press Start 2P', monospace; font-size: 8px; color: #9b59b6; margin-bottom: 18px; }
+  .single-post-body { line-height: 1.8; }
+  .single-comments {
+    margin-top: 24px;
+    border-top: 1px dotted #9b59b6;
+    padding-top: 16px;
+  }
+  .comments-title { font-family: 'Press Start 2P', monospace; font-size: 9px; color: #da70d6; margin-bottom: 12px; }
+  .comment {
+    background: rgba(0,0,0,0.4);
+    border-left: 3px solid #9b59b6;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border-radius: 0 4px 4px 0;
+  }
+  .comment-author { font-family: 'Permanent Marker', cursive; font-size: 13px; color: #ff69b4; }
+  .comment-text { font-size: 12px; color: #d4b8e0; margin-top: 2px; font-family: 'Coming Soon', cursive; }
+  .comment-date { font-size: 10px; color: #666; margin-top: 2px; }
+
+  .post-nav { margin-top: 16px; zoom: 1; }
+  .post-nav:after { content: ''; display: block; clear: both; }
+  .post-nav .post-nav-btn:first-child { float: left; }
+  .post-nav .post-nav-btn:last-child { float: right; }
+  .post-nav-btn {
+    font-size: 11px;
+    color: #da70d6;
+    cursor: pointer;
+    background: none;
+    border: 1px dashed #9b59b6;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: 'Coming Soon', cursive;
+  }
+  .post-nav-btn:hover { color: #ff69b4; }
+
+  /* ===== GLITTER TEXT ===== */
+  .glitter { color: #ff69b4; }
+
+  /* ===== FOOTER ===== */
+  .site-footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 2px dashed #9b59b6;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
+    color: #555;
+    line-height: 2;
+  }
+  .site-footer a { color: #9b59b6; text-decoration: none; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .sidebar, .posts-area, .sidebar-right { grid-column: auto; }
+    .blog-title { font-size: 28px; }
+  }
+
+  .divider { text-align: center; color: #9b59b6; font-size: 18px; letter-spacing: 4px; margin: 6px 0 16px; }
+
+
+  /* ASCII art in sidebar */
+  .ascii-flower-wrap {
+    width: 126px;
+    overflow: hidden;
+    position: relative;
+  }
+  .ascii-flower {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 2px;
+    line-height: 1.2;
+    color: #ffffff;
+    white-space: pre;
+    display: block;
+    width: 126px;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+  }
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #1a0a2e; }
+  ::-webkit-scrollbar-thumb { background: #9b59b6; border-radius: 3px; }
+
+  /* ===== CALENDAR POPUP ===== */
+  #calPopup {
+    background: #0a0018;
+    border: 1px solid #9b59b6;
+    padding: 6px;
+    margin-bottom: 4px;
+    font-family: verdana;
+    font-size: 11px;
+    width: 120px;
+    height: 142px;
+    overflow: hidden;
+  }
+  #calPopup table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  #calPopup td, #calPopup th { text-align: center; padding: 1px; width: 14%; height: 14px; }
+  #calPopup th { color: #9b59b6; font-size: 9px; }
+  #calPopup .cal-day { color: #d6b7e8; cursor: pointer; }
+  #calPopup .cal-day:hover { color: #ff69b4; text-decoration: underline; }
+  #calPopup .cal-empty { color: #333; }
+  #calPopup .cal-nav { display: table; width: 100%; margin-bottom: 4px; }
+  #calPopup .cal-nav-cell { display: table-cell; vertical-align: middle; }
+  #calPopup .cal-nav-btn { background: none; border: 1px solid #6f4c8f; color: #da70d6; cursor: pointer; padding: 0 4px; font-family: verdana; font-size: 10px; }
+  #calPopup .cal-nav-btn:hover { color: #ff69b4; }
+  #calPopup .cal-month-label { text-align: center; color: #ff69b4; font-size: 10px; white-space: nowrap; }
+  #calPopup .cal-selected { color: #7fff00; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="site-header">
+    <h1 class="blog-title"></h1>
+    <p class="blog-tagline"></p>
+  </div>
+
+  <!-- NAV -->
+
+
+
+  <!-- MAIN GRID -->
+  <div class="main-grid" id="main-grid">
+  <table class="main-grid-table" width="960" cellpadding="0" cellspacing="0"><tr>
+
+    <!-- LEFT SIDEBAR -->
+    <td width="150"><aside class="sidebar">
+      <div class="sidebar-widget">
+        <div class="widget-title">profile</div>
+        <div class="widget-body">
+          <div class="profile-pic"></div>
+          <div class="ascii-flower-wrap"><pre class="ascii-flower">
+
+
+                            l\|i
+                          ,___\\\\|.                        ...
+                         ;~__I,i!/\\\:                .i\\\__~~|
+                        .~~_!;::::;|\_/.            l/\/!i::;__~i
+                        l--_Iiii;iiIl_~~,         l\\/I;;;;;i\__\
+           .            |-=~lII!IIIlI\\--       ,_\\l;;;;iiiI\~_~,
+         |--/           /+&lt;-|!!-_!!!||_~-+,    ;__\lIIIIIIIIl_~~~I       .
+        I*-//_I         |+*=\||~&gt;-_///_-++-   :~__|!lllll!!/|_-~~l  .i!\\+~
+        &gt;&gt;~~/i!/:       i+%*-\\+*&lt;+-\__+&lt;=&lt;l .~~~\|||||!||\_\_+-=l!!l///\#%
+       .%@~__\Iil/.      +*#&lt;-~+&gt;@===~~-*▓&gt;\ _---\/////_/\~__==/I:::|///&lt;█%
+       .*▓*~_\\|II!!.    ;&lt;@@&lt;+==@@&lt;&lt;=++%▓%#i-+--_\\\_~\_~=&lt;~/Iiiii!//\\@█%
+  ,;i;:.=▓▓%~_\\\/!!//,   \#▓@&gt;&lt;&gt;%▓█&gt;&gt;&lt;&lt;%▓▒█/+==+~~----~=%-\llllll!_\\\@█▓\
+~&gt;&gt;&lt;===++-+&lt;▓*-\\_~_\/__i .&gt;█▒█&gt;**█▒@*@*%░▒▒=====++&lt;++=#&gt;~/|||!!|!\~_\%█▓%.
++█&lt;&lt;!I!\---~~~_&gt;*+~~++-~-+_:#▒░▒%*%▒▒#▓█@░░▓&lt;&lt;*==&lt;##=&gt;█=+\\/\__//~+__&gt;▓▓▓I
+-▓▓&lt;+lIIIIII\_\\_~%%++&lt;&gt;&gt;&lt;=&lt;=█▐░░▓##░▌▒▒░░▐█&gt;#&gt;&lt;#@@%%▓++~_~-~-~_~=~~*▓▓▓|
+I▓██*+\lllllII!\___~&lt;@*&lt;*%%%&gt;&gt;&gt;@▐▌▌░@▌▌▌▐▐▄#*█&gt;███▓*░=++++=&gt;&lt;-~-&gt;-~#▓▓▓i
+ /▒▓██=~\|!!lll!!~-~~-+#█&gt;%#@@#**@▐▐▐▐▐▀▀▄▁███▓▓▒▒▓▌&gt;+++&lt;%%*--&lt;%--█▓▓#,
+  !░▒█▓█&gt;~\/||!||/_+==++=&gt;▌#%██▓▓▓▓▓-+&lt;_~&gt;~_%▓▒▌▒▒▌█===####++##+&lt;▓▒▓\ .;!|//\__~--++===&lt;
+   .*░▒▓███%=~_\\__~+&gt;&gt;&gt;&lt;&lt;&gt;&gt;▓▌░▓▒░@#\_&gt;&gt;_&lt;-\--__#▐▄&gt;=&gt;@██#=@@*+@▓█&gt;~_/lIIl||||!lll!/=&lt;█-
+     .~▒░░▓█▓▓▓█@%&lt;=+=%%%%%**%#▌▀#%*=**&lt;&lt;&lt;==*&gt;=*%█▀&gt;*▓▓▓*█▒▓%%%+------~_/!!!!||//_=&lt;*█▓:
+        .l*▌▌░▒▓▓▓▓▓▒░▓███████@#▒&lt;&gt;=_&gt;-~-&gt;--+&gt;++=~*#▓▒▓▒▐▐▓*&gt;**&gt;&gt;=+~\/\//\\\\_~+=&lt;*█▓▓:
+             :_▌▐▐▀▐▌▒▓▌▀▀▐▌▓▓▒▓░▌#%%%~/_*_=*__&lt;@@█▀▒▀▄▄░@@@#*&gt;&lt;&lt;&lt;&lt;&gt;&gt;&gt;*%%%*%*&gt;&gt;%█▓▓▓&lt;.
+                .,;\#%#▒▌▐▀▀▀▀▀▐▒▐▌▓@█@**%_/+=~▒**▐▂▁▄▒#&gt;+~~_\////\\__~~-=██▓░▒▒░▒+.
+              ,_=+-~_\//_~=&lt;&gt;*#@▓▐▐▐@#░▒▒▒▓▒▒░▒▒▐▐▀▒▒█#&lt;+~~_\\/////\\_~-#███▒░%\.
+             i&gt;&lt;=-|!!!!!|/\~-=&lt;&gt;#▓▌▁▄▀▄▁▀▓▒▒▌▀░▓▐▄▄▌▌▓#&gt;&lt;==&lt;*&gt;-\/\-=+~#▓████i
+             **&gt;/ll!!||/_~-+=&lt;=&gt;*█▒▒▌▐▄▁▁▁▁▁▁▁▁▁▀░█&lt;-__//\_\_~-*%&gt;-%▓▓▓▓▓██:
+             %█&gt;I!!||//\__~-+=&gt;%█%@▒░█▐▀▐▁▐▀▀▀▐▒%%%*&lt;=-_/\\_=@▓░░░▒▓▓▓▓▓█-__~l.
+             &lt;▓▓&gt;!||//\_~~-+&lt;***%█▓@█%░▄▀▐▌▐▌░▒▓@%&lt;-_~=███▓▓▓▓&gt;*#@█@#*&gt;&gt;&lt;&lt;&lt;==++++l
+              *▓▓▓&gt;_\_~~-+&lt;&gt;&gt;*%@@█▓▒▒▌▀▄▀▀░*&lt;&lt;&lt;++++*▓█████▓▓#&gt;=+--+==&lt;&lt;=-~~~-&lt;=I
+             .l=▓▓█▓▓▓@@%%##@█▓█\, .,;i&lt;▐▌▌▒▓▓▓▓█▓▓▓██████###%%&gt;&lt;+++----=&gt;&lt;&gt;l.
+         ./-&lt;*#%=_\=@▓▓█▓▓█@=~_;.      I▒▒▌/.i+@████▒▒░▌░▒▒▒▓█#&gt;&lt;&lt;&lt;&gt;%###%!
+       :----=&gt;#@@#@@█████#***~~~~-_;    /++~     .%▐▒\.          .,,.
+     .-&gt;&lt;*&gt;+~~~-+&gt;#@@#&gt;+-+&lt;*█▒▌▌█&gt;-~~\;  %=+/   :░&gt;.
+    .&lt;*&gt;~~~~+++=-++++++======&lt;#@█▒▀▀▐#-&gt;. ===| l▐;.
+    ~&gt;~-|.   . ,\@@██#%%%###**&gt;&gt;&gt;**█▌▐▐▐▌i -@=*▌;
+    +|              :-#▓▒▒░░▒▓██▓▒▐▀▀▀▄▀▌&gt;; \▌▌░i
+    ,                     :!\+&lt;*###%*&lt;+_▓▌=, -░▓=;  l-!
+                                         ;#+;,▒#=\  ++\        .;|_---~_\\\\\\\\i.
+                                           ~*_██&gt;+,█▓:   .~%&gt;=+-~~*&gt;~_____&lt;&lt;~___~__/.
+                                            !░▓#@&lt;▒,  .&lt;█%*%%@@██████▓▓@#%&gt;&gt;*&gt;=+-+====.
+                                             ~▁▐@+   /▒▒░░█*==&lt;&gt;=--+=&gt;**&gt;======&lt;&gt;#%/
+                                            ,▀▁░%~ .&lt;░░░▌▌▌▒@%***%&lt;&lt;&lt;&lt;&lt;&lt;&lt;&gt;%▓▒&gt;/;
+                                           i▀▀▌▌░;.@▒▌&gt;     ..,,;IlIi:....
+                                          *▀▒@@#%*█▐▒I
+                                        :▂▄▄▀▄▀▀▀█~
+                                       _▁▂▁▄▄▀░,
+                                      =▂▂▁▁▄▄_
+                                      I░▄▄░I
+
+
+</pre></div>
+        </div>
+      </div>
+
+      <div class="sidebar-widget">
+        <div class="widget-title">now playing</div>
+        <div class="widget-body">
+          <div class="music-player">
+            <div class="music-track"><span class="track-name" id="trackName">Cita en el Quirófano - PXNDX
+            </span></div>
+            <div class="music-controls">
+              <button class="music-btn" onclick="prevTrack()">◀</button>
+              <button class="music-btn" onclick="nextTrack()">▶▶</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-widget">
+        <div class="widget-title">about me</div>
+        <div class="widget-body">
+          <div class="info-list">
+            age: <span>15</span><br>
+            sign: <span>scorpio</span><br>
+            fave band: <span>MCR</span><br>
+            status: <span>In lOvE wIth (M)</span>
+          </div>
+        </div>
+      </div>
+    </aside></td>
+    <!-- POSTS -->
+    <td width="710"><div class="posts-area" id="posts-area">
+
+      <!-- POST 1 -->
+      <article class="post-card" id="post-0">
+        <div class="post-header">
+          <span class="post-title-link">Ruines</span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          Les ruines sont des lieux endormis. Les pierres vivent dans un monde dont nous ne comprenons ni le rythme ni la temporalité. N’aies pas peur d’être attirée par les ruines, peut-être tu aimes entendre les pierres ronfler ? </br>
+        </br>
+          Les secrets se partagent la nuit… Si jamais tu te sens seule, souviens-toi que les yeux, qui dans les pierres, t’observent tout le temps, partout…</br>
+
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-1">
+        <div class="post-header">
+          <span class="post-title-link">Ice-skates</span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          Migrating feels like ice-skating, but the skates are upside-down. 
+ </br>
+</br>
+Migrating feels like going through a door, but some threads of your old sweater get stuck on the border of the doorframe. The more you walk, the more the threads get pulled, and if you decide to continue the sweater disappears. But that sweater is your body.</br>
+</br>
+Mon corps est ouvert… Avancer, c’est se faire découdre, déchiqueter. Je sens qu’on me tire par les cheveux, par les tripes (elles sont dehors) en arrière… je suis déterminée à continuer, même si je laisse ma vie derrière moi.</br>
+
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-2">
+        <div class="post-header">
+          <span class="post-title-link">Aéroport</span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          Arrivée à l’aéroport, mon corps est intact. En fait, mon corps est ok. Mais le cauchemar a été réel, j’ai perdu quelque chose.</br>
+</br>
+C’est ici que je dois commencer une autre vie. Aux yeux des autres, je suis normale, je dois m’y apparenter en tout cas. Mais au fond de moi, je sais que je suis un double de moi-même. Mon destin n’est plus le mien. Je ne suis qu’une carcasse, car j’ai traversé l’océan, mais mes entrailles n’ont pas de visa, elles sont restées plantées dans la maison où j’ai grandi.
+</br>
+Dios ayudame. Tengo miedo de voltear hacia atrás, Entiérrame ahí de donde nunca debí haber salido.</br>
+
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-3">
+        <div class="post-header">
+          <span class="post-title-link"></span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          All migrants are heroes, heroes from a story which has not been written yet.
+        </br>
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-4">
+        <div class="post-header">
+          <span class="post-title-link">Ange de la Cruauté
+          </span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          Il y a un ange de la cruauté qui me suit depuis que je suis enfant. J’ai passé longtemps sans pouvoir le percevoir, il était invisible...  mais j’ai rêvé de lui quand même… Souvent j’ai vu des images de la fin du monde, avec un ciel tout en métal, Une fille garde la dernière fleur au monde dans un pot. et tout le monde savait qu’on allait mourir. 
+        </br> </br> 
+        Souvent je voyais ma mère pleurer mais je n’ai jamais su pourquoi. </br> 
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-5">
+        <div class="post-header">
+          <span class="post-title-link">Nous habitons ensemble
+          </span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          Quelques fois par mois, il y a une personne qui vient s'asseoir sur mon lit la nuit. Quand cela arrive, je suis à moitié endormie. J’ai peur, évidemment, mais je ne bouge pas.</br> 
+        </br> 
+        Je ne connais pas le visage de cette personne. Elle s’assoit toujours dos à moi, elle a la tête qui pend un peu, elle a l’air triste, mais elle dit jamais rien. Et d’un coup, elle part, et elle disparaît dans les pénombres de la nuit.</br> 
+      </br> 
+      Cosita, dime que tienes… ¿Qué es lo que te pasa? ¿Que te hicieron? Bebé…</br> 
+    </br> 
+      Nous habitons ensemble, même si je la vois rarement…</br> 
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-6">
+        <div class="post-header">
+          <span class="post-title-link">La fête
+          </span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          Je ne sais pas depuis combien de temps cette fête dure, elle ne semble pas être près de se terminer. Personne ne remarquera que j’arrive en retard. J’ouvre la porte. La maison tremble.</br> 
+        </br> 
+        Tout le monde dans cette pièce a beaucoup plus d’argent que moi. La maison tremble à nouveau, mais cette fois le premier étage s’effondre sur nous. Dès que j’ouvre les yeux, d’innombrables serpents et rats traversent les décombres, tandis que les invités qui ont survécu crient. J’essaie de bouger, mais la vue du ciel sombre et des étoiles brillantes m'hypnotise: Aujourd’hui est la nuit où les vampires et les lucioles dansent sous le clair de lune.</br> 
+      </br> 
+      Quelque chose, au fond des décombres, me tire par les pieds et cherche à m’entraîner aux fins fonds de la terre.</br> 
+    </br> 
+    — Qui est-ce ? je demande.</br> 
+  </br> 
+  — C’est Dieu ! Et je viens pour toi ! répond-il.</br> 
+</br> 
+Ses mains poilues aux longs ongles pointus me dégoûtent profondément. Dans une tentative désespérée d’échapper à Dieu, je demande aux rats de le dévorer complètement, ce qu’ils font efficacement. </br>
+</br> 
+À Mexico, il y a des tremblements de terre tous les ans… Une fois, il y en a eu un lorsque j’étais dans un vingtième étage. Je ne l’oublierai jamais, j’ai aperçu Dieu, et j’ai eu peur.</br> 
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-7">
+        <div class="post-header">
+          <span class="post-title-link">
+          </span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          Casi nunca escribo en español, ojalá nunca hubiera nacido en un país forzado por la historia a hablar español. 
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-8">
+        <div class="post-header">
+          <span class="post-title-link">Ghosts’ Whispers (co-écrit avec Lulu)
+          </span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          why you dont play with me?</br>
+          who is there?</br>
+        </br>
+        theyve come to pick u up</br>
+        careful, they are listening</br>
+        hey..let me in..</br>
+        </br>
+        It's so silent… it’s painful…</br>
+        i miss feeling</br>
+        </br>
+        Do you know how it feels to have dirt in your lungs ?</br>
+        I wish they would stop searching for me </br>
+        i'm thirsty</br>
+        </br>
+        whatever you do, do not fall asleep</br>
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-9">
+        <div class="post-header">
+          <span class="post-title-link">LA LLORONA II (co-écrit avec Lulu)
+          </span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          je veux être prise dans tes bras…</br>
+        </br>
+        Je veux te combler avec le liquide chaud qui s’écoule de mes blessures,
+</br>
+        </br>
+        je te promets que ta bouche avalera mes larmes 
+      </br>
+        </br>
+        Jusqu’à quand ma peine sera-t-elle ignorée ?</br>
+        </br>
+        Es-tu satisfait de mes morceaux de chair ? Mon cœur et ma langue s’entassent dans tes entrailles… </br>
+        </br>
+        Défais-moi, digère-moi avec tes acides, corrode-moi comme tu le fais avec tout le reste 
+</br>
+        </br>
+        L’attente…</br>
+        </br>
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-10">
+        <div class="post-header">
+          <span class="post-title-link">Histoire vraie
+          </span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          Un jour, lors d’un dîner de famille, mon cousin m’a raconté que son père avait rencontré un fantôme. Cette partie de ma famille vit à la campagne, et la rencontre avait eu lieu pendant la nuit. Mon oncle avait vu une silhouette blanche et lumineuse flotter dans les champs près de la montagne. Même s’il était terrifié, il s’est approché de l’entité.. peut-être un peu trop… La figure s’est avancée vers lui et lui a donné une gifle… Mon oncle est rentré chez lui en courant et il est tout de suite tombé malade, avec beaucoup de fièvre.</br>
+        </br>
+        Après le dîner, je suis montée à l’étage pour aller voir mon oncle. Il transpirait, il marmonnait, et sur son visage il y avait la marque de main, sa peau était décolorée.</br>
+      </br>
+      Cette nuit-là, j’ai fait des cauchemars: des silhouettes avec des yeux rouges m’entouraient et secouaient mon lit chacun son tour.</br>
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-11">
+        <div class="post-header">
+          <span class="post-title-link">Death
+          </span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          The day never came no more.
+        </br>
+        I opened my eyes and saw nothing…
+      </br>
+      I feel roots gently caressing my body and slowly penetrating it.
+    </br>
+    I can’t see no more but I can hear through all the flowers that are blossoming and eating my beautiful earthly corpse. 
+  </br>
+  I will patiently wait for you.
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-12">
+        <div class="post-header">
+          <span class="post-title-link">Death II
+          </span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          Un jour, j’ai vu un avion dans le ciel.
+        </br>
+      </br>
+      Une lame rasoir tranche le ciel, laissant une plaie béante.
+    </br>
+    </br>
+    La fin d’un cycle, la fin de tous les cycles.
+  </br>
+  </br>
+  Je pleure, je ne peux que pleurer.
+</br>
+</br>
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-12">
+        <div class="post-header">
+          <span class="post-title-link">Message from the Secret Society that lives under the Theaters
+          </span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          I come here as the messenger of superior forces. There is a secret that has been long kept, but some decisions have been made among the superior forces and they agree to finally reveal the truth.        </br>
+      </br>
+      Beneath every theatre, there lie the remnants of an ancient civilization who once ruled over Europe and the world. Today, these beings are very old and have no hope of ever returning to the surface to rule again. Their only desire is to live out their remaining days in security and comfort.    </br>
+    </br>
+    These ancient beings have a unique connection to the theatres above them. These entities are fed by the energy generated by the performances: the applause, the laughter, the tears, and even the ambient thermal heat of the audience.
+  </br>
+  </br>
+  If the piece is good, they like it, if the piece is bad, they also like it,if  the piece is conventional, they are happy, if  the piece is radical, actually they don’t care. If it is a success or a failure, for them it’s the same… If the director is an abuser or the company has strong work ethics, the ancient divinities don’t see any difference. As long as people continue to come to the theatre, even small crowds are enough to sustain them in their twilight years.
+</br>
+</br>
+What does this make us: servants of terminal gods? Caretakers of soon to be ruins? Nostalgic ghosts of decadent temples? Supervisors of the palliative care units ? What if I told you that the only reason why the state continues giving money to theaters was to maintain the life support of these ancient leaders who once ruled over us all.
+</br>
+</br>
+I also come here to ask you an important question for the future. What will we as a society do with these theaters once the old gods die? Do you want to continue using these places? How? What would you suggest, what would you change? And what are you going to do with the corpse of art, and the black box that has been for a very long time a coffin…
+</br>
+</br>
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ désirée ]=-</span>
+        </div>
+      </article>
+
+      <article class="post-card" id="post-border">
+        <div class="post-header">
+          <span class="post-title-link">splinter in your mind</span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          <img src="splinter.png" alt="border" style="width:100%;height:auto;display:block;">
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ oum@im@ ]=-</span>
+        </div>
+      </article>
+
+
+      <article class="post-card" id="post-border">
+        <div class="post-header">
+          <span class="post-title-link">border</span>
+          <span class="post-date-link"></span>
+        </div>
+        <div class="post-body p1-body">
+          <img src="border.png" alt="border" style="width:100%;height:auto;display:block;">
+        </div>
+        <div class="post-footer">
+          <span class="post-tag">-=[ oum@im@ ]=-</span>
+        </div>
+      </article>
+
+
+    </div></td><!-- end posts-area -->
+
+    <!-- RIGHT SIDEBAR -->
+    <td width="100"><aside class="sidebar-right">
+      <div class="sidebar-widget">
+        <div class="widget-title">stats</div>
+        <div class="widget-body">
+          <div class="info-grid">
+            <div><span class="label">created:</span> 07/09/2003</div>
+            <div><span class="label">updated:</span> 22/04/2004</div>
+            <div><span class="label">visits:</span> <span id="visitCount">000000</span></div>
+            <div><span class="label">comments:</span> 12</div>
+            <div><span class="label">friends:</span> 420</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="sidebar-widget">
+        <div class="widget-title">guestbook</div>
+        <div class="widget-body">
+          <form class="guestbook-form" onsubmit="addGuestbookEntry(event)">
+            <input id="guestName" type="text" maxlength="30" placeholder="name" value="name">
+            <input id="guestDate" type="text" readonly="readonly" placeholder="date" onclick="toggleCal()" style="cursor:pointer;" value="date">
+            <div id="calPopup" style="display:none;"></div>
+            <input id="guestTime" type="text" maxlength="5" placeholder="time (hh:mm)" value="time hh:mm">
+            <button type="submit">sign</button>
+          </form>
+          <div id="guestbookError" class="guestbook-error"></div>
+          <ul class="guestbook-list" id="guestbookList">
+            <li>luna<span class="stamp">signed: saturday, 11 oct 2003 at 14:00</span></li>
+            <li>rAA<span class="stamp">signed: sunday, 12 oct 2003 at 19:00</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </aside></td>
+  </tr></table>
+  </div><!-- end main-grid -->
+
+  <!-- FOOTER -->
+  <div class="site-footer">
+    <div></div>
+    <div></div>
+    <div style="margin-top:8px;color:#9b59b6"></div>
+    <div style="margin-top:4px;font-size:6px">© 2003 stella • no copying my layout or i will find u</div>
+  </div>
+
+</div><!-- end wrapper -->
+
+<script>
+  // ===== POSTS DATA =====
+  var posts = [
+    {
+      title: "The ice-skates",
+      date: "tuesday, 14 oct 2003 // 22:47",
+      mood: "reflective",
+      song: "Helena - MCR",
+      bodyClass: "p1-body",
+      body: "ok so u guys are NOT gonna believe what happened today...",
+      comments: [
+        { author: "xXclaire_bearXx", text: "I CALLED U TWICE lmao", date: "oct 14, 11:02pm" }
+      ]
+    },
+    {
+      title: "La Cruaute",
+      date: "tuesday, 14 oct 2003 // 22:47",
+      mood: "dark",
+      song: "Bring Me To Life - Evanescence",
+      bodyClass: "p1-body",
+      body: "Il y a un ange de la cruaute qui me suit depuis que je suis enfant...",
+      comments: []
+    }
+  ];
+  
+  // ===== MUSIC PLAYER =====
+  var tracks = [
+    "Hey Ya! - OutKast",
+    "My immortal - Evanescence",
+    "Somewhere I Belong - Linkin Park",
+    "Sálvame - RBD",
+    "Bring Me To Life - Evanescence",
+    "Hey Ya! - OutKast",
+    "Cita en el Quirófano - PXNDX",
+    "I'm With You - Avril Lavigne"
+  ];
+  
+  var currentTrack = 0;
+  
+  function updateTrack(){
+    document.getElementById('trackName').innerHTML = tracks[currentTrack];
+  }
+  
+  function prevTrack(){
+    currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+    updateTrack();
+  }
+  
+  function nextTrack(){
+    currentTrack = (currentTrack + 1) % tracks.length;
+    updateTrack();
+  }
+  
+  // ===== OPEN POST =====
+  function openPost(idx){
+    var p = posts[idx];
+    var view = document.getElementById('single-post-view');
+    var grid = document.getElementById('main-grid');
+  
+    var commentsHtml = '';
+    var i;
+    for(i = 0; i < p.comments.length; i++){
+      var c = p.comments[i];
+      commentsHtml +=
+        '<div class="comment">' +
+          '<div class="comment-author">' + c.author + '</div>' +
+          '<div class="comment-text">' + c.text + '</div>' +
+          '<div class="comment-date">' + c.date + '</div>' +
+        '</div>';
+    }
+  
+    var prevBtn = '';
+    var nextBtn = '';
+  
+    if(idx > 0){
+      prevBtn = '<button class="post-nav-btn" onclick="openPost(' + (idx-1) + ')">newer post</button>';
+    }
+  
+    if(idx < posts.length - 1){
+      nextBtn = '<button class="post-nav-btn" onclick="openPost(' + (idx+1) + ')">older post</button>';
+    }
+  
+    var html = '';
+    html += '<button class="back-btn" onclick="showMain()">back to blog</button>';
+    html += '<div class="single-post-title">' + p.title + '</div>';
+    html += '<div class="single-post-meta">' + p.date + ' | mood: ' + p.mood + ' | song: ' + p.song + '</div>';
+    html += '<div class="single-post-body ' + p.bodyClass + '">' + p.body + '</div>';
+    html += '<div class="post-nav">' + prevBtn + nextBtn + '</div>';
+    html += '<div class="single-comments">';
+    html += '<div class="comments-title">' + p.comments.length + ' comments</div>';
+    html += commentsHtml;
+    html += '<div style="margin-top:12px;font-size:11px;color:#666;">[ leave a comment ]</div>';
+    html += '</div>';
+  
+    view.innerHTML = html;
+  
+    view.style.display = 'block';
+    grid.style.display = 'none';
+  }
+  
+  // ===== BACK =====
+  function showMain(){
+    document.getElementById('single-post-view').style.display = 'none';
+    document.getElementById('main-grid').style.display = 'block';
+  }
+  
+  // ===== CALENDAR =====
+  var MONTHS = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  var DAYS   = ['su','mo','tu','we','th','fr','sa'];
+  var DNAMES = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+
+  var calYear  = 2003;
+  var calMonth = 9; // 0-based, so 9 = october
+  var calSelectedDate = '';
+
+  function toggleCal(){
+    var popup = document.getElementById('calPopup');
+    if(popup.style.display === 'none' || popup.style.display === ''){
+      renderCal();
+      popup.style.display = 'block';
+    } else {
+      popup.style.display = 'none';
+    }
+  }
+
+  function renderCal(){
+    var popup = document.getElementById('calPopup');
+    var firstDay = new Date(calYear, calMonth, 1).getDay();
+    var daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+    var html = '';
+    var i;
+    var dayNum = 1;
+
+    html += '<div class="cal-nav">';
+    html += '<span class="cal-nav-cell"><button class="cal-nav-btn" onclick="calPrev()">&#9664;</button></span>';
+    html += '<span class="cal-nav-cell cal-month-label">' + MONTHS[calMonth] + ' ' + calYear + '</span>';
+    html += '<span class="cal-nav-cell"><button class="cal-nav-btn" onclick="calNext()">&#9654;</button></span>';
+    html += '</div>';
+    html += '<table><tr>';
+    for(i = 0; i < 7; i++){
+      html += '<th>' + DAYS[i] + '</th>';
+    }
+    html += '</tr>';
+    for(i = 0; i < 42; i++){
+      if(i % 7 === 0){ html += '<tr>'; }
+      if(i < firstDay || dayNum > daysInMonth){
+        html += '<td class="cal-empty">.</td>';
+      } else {
+        var dow = new Date(calYear, calMonth, dayNum).getDay();
+        var dateStr = DNAMES[dow] + ', ' + dayNum + ' ' + MONTHS[calMonth] + ' ' + calYear;
+        var isSel = (dateStr === calSelectedDate);
+        html += '<td class="cal-day' + (isSel ? ' cal-selected' : '') + '" onclick="pickDay(\'' + dateStr + '\')">' + dayNum + '</td>';
+        dayNum++;
+      }
+      if(i % 7 === 6){ html += '</tr>'; }
+    }
+    html += '</table>';
+    popup.innerHTML = html;
+  }
+
+  function calPrev(){
+    calMonth--;
+    if(calMonth < 0){ calMonth = 11; calYear--; }
+    renderCal();
+  }
+
+  function calNext(){
+    calMonth++;
+    if(calMonth > 11){ calMonth = 0; calYear++; }
+    renderCal();
+  }
+
+  function pickDay(dateStr){
+    calSelectedDate = dateStr;
+    document.getElementById('guestDate').value = dateStr;
+    document.getElementById('guestDate').style.color = '#eee';
+    document.getElementById('calPopup').style.display = 'none';
+  }
+
+  function setCookie(name, value, days){
+    var expires = '';
+    if(days){
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = '; expires=' + date.toGMTString();
+    }
+    document.cookie = name + '=' + escape(value) + expires + '; path=/';
+  }
+
+  function getCookie(name){
+    var needle = name + '=';
+    var parts = document.cookie.split(';');
+    var i;
+    for(i = 0; i < parts.length; i++){
+      var c = parts[i];
+      while(c.charAt(0) === ' '){ c = c.substring(1, c.length); }
+      if(c.indexOf(needle) === 0){ return unescape(c.substring(needle.length, c.length)); }
+    }
+    return '';
+  }
+
+  function saveGuestbook(){
+    var list = document.getElementById('guestbookList');
+    if(list){ setCookie('guestbookEntries', list.innerHTML, 365); }
+  }
+
+  function loadGuestbook(){
+    var list = document.getElementById('guestbookList');
+    var saved = getCookie('guestbookEntries');
+    if(list && saved){ list.innerHTML = saved; }
+  }
+
+  function setupIePlaceholders(){
+    var nameInput = document.getElementById('guestName');
+    var dateInput = document.getElementById('guestDate');
+    var timeInput = document.getElementById('guestTime');
+    if(nameInput && (nameInput.value === '' || nameInput.value === 'name')){
+      nameInput.value = 'name';
+      nameInput.style.color = '#888';
+      nameInput.onfocus = function(){ if(this.value === 'name'){ this.value = ''; this.style.color = '#eee'; } };
+      nameInput.onblur = function(){ if(this.value === ''){ this.value = 'name'; this.style.color = '#888'; } };
+    }
+    if(dateInput && (dateInput.value === '' || dateInput.value === 'date')){
+      dateInput.value = 'date';
+      dateInput.style.color = '#888';
+      dateInput.onfocus = function(){ if(this.value === 'date'){ this.value = ''; this.style.color = '#eee'; } };
+      dateInput.onblur = function(){ if(this.value === ''){ this.value = 'date'; this.style.color = '#888'; } };
+    }
+    if(timeInput && (timeInput.value === '' || timeInput.value === 'time hh:mm')){
+      timeInput.value = 'time hh:mm';
+      timeInput.style.color = '#888';
+      timeInput.onfocus = function(){ if(this.value === 'time hh:mm'){ this.value = ''; this.style.color = '#eee'; } };
+      timeInput.onblur = function(){ if(this.value === ''){ this.value = 'time hh:mm'; this.style.color = '#888'; } };
+    }
+  }
+
+  // ===== GUESTBOOK =====
+  function addGuestbookEntry(e){
+    if(e && e.preventDefault){
+      e.preventDefault();
+    } else {
+      window.event.returnValue = false;
+    }
+
+    var nameInput = document.getElementById('guestName');
+    var dateInput = document.getElementById('guestDate');
+    var timeInput = document.getElementById('guestTime');
+    var list = document.getElementById('guestbookList');
+    var errorBox = document.getElementById('guestbookError');
+
+    var name = nameInput.value.replace(/^\s+|\s+$/g, '');
+    var date = dateInput.value;
+    var time = timeInput.value.replace(/^\s+|\s+$/g, '');
+    var timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
+    if(errorBox){ errorBox.innerHTML = ''; }
+
+    if(!name || !date || !time || name === 'name' || date === 'date' || time === 'time hh:mm'){
+      if(errorBox){ errorBox.innerHTML = 'Please fill name, date, and time.'; }
+      return false;
+    }
+    if(!timePattern.test(time)){
+      if(errorBox){ errorBox.innerHTML = 'Use time like HH:MM (example: 09:30).'; }
+      return false;
+    }
+
+    var li = document.createElement('li');
+    li.innerHTML = name + '<span class="stamp">signed: ' + date + ' at ' + time + '</span>';
+
+    if(list.firstChild){
+      list.insertBefore(li, list.firstChild);
+    } else {
+      list.appendChild(li);
+    }
+
+    nameInput.value = '';
+    dateInput.value = '';
+    calSelectedDate = '';
+    timeInput.value = '';
+    saveGuestbook();
+    if(errorBox){ errorBox.innerHTML = ''; }
+
+    return false;
+  }
+  
+  // ===== VISITOR COUNTER =====
+  var visit = document.getElementById('visitCount');
+  if(visit){
+    visit.innerHTML = Math.floor(Math.random()*90000)+10000;
+  }
+  loadGuestbook();
+  setupIePlaceholders();
+  </script>
+</body>
+</html>
