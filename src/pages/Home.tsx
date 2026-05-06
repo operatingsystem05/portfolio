@@ -24,26 +24,23 @@ export default function Home() {
       {sortedProjects.map((p) => (
         <div
           key={p.slug}
-          className="flex flex-col md:flex-row gap-4 md:gap-6 py-6 group cursor-pointer"
+          className="flex flex-row gap-4 md:gap-6 py-6 group cursor-pointer items-start"
           onClick={() => openProject(p)}
         >
           {/* LEFT — title + meta + summary */}
           <div className="flex flex-row gap-4 md:gap-6 flex-1 min-w-0">
-            {/* Title */}
+
+            {/* Title + wip/rejected */}
             <div className="w-[140px] md:w-[160px] flex-shrink-0">
               <p className="text-sm font-bold uppercase leading-tight tracking-wide text-black group-hover:text-red-600 transition-colors">
                 {p.title}
               </p>
               <div className="flex gap-2 mt-1">
                 {p.wip && (
-                  <span className="text-[10px] text-green-600 font-mono">
-                    wip
-                  </span>
+                  <span className="text-[10px] text-green-600 font-mono">wip</span>
                 )}
                 {p.rejected && (
-                  <span className="text-[10px] text-red-400 font-mono">
-                    rejected
-                  </span>
+                  <span className="text-[10px] text-red-500 font-mono">rejected</span>
                 )}
               </div>
             </div>
@@ -66,13 +63,13 @@ export default function Home() {
             </div>
           </div>
 
-          {/* RIGHT — always use p.image as thumbnail */}
+          {/* RIGHT — thumbnail always inline on same row */}
           <div className="flex-shrink-0 self-start">
             <div className="w-[70px] h-[70px] md:w-[80px] md:h-[80px] overflow-hidden">
               <img
                 src={p.image}
                 alt={p.title}
-                className="w-full h-full object-cover transition duration-300"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>

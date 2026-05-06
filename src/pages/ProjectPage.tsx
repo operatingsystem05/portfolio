@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import CodeEmbed from "../components/CodeEmbed";
 import { projects } from "../data/projects";
@@ -24,9 +24,11 @@ type ProjectExtended = (typeof projects)[number] & {
   imageContain?: boolean;
 };
 
+// Width = content width of the HTML file itself
+// Height = how tall the iframe container should be
 const EMBED_SIZES: Record<string, { width: number; height: number }> = {
-  "exits — the blog": { width: 980, height: 900 },
-  "sweep my mind — the game": { width: 860, height: 600 },
+  "exits — the blog": { width: 700, height: 900 },
+  "sweep my mind — the game": { width: 540, height: 600 },
 };
 
 function isVideo(src: string) {
@@ -40,6 +42,7 @@ export default function ProjectPage() {
     | undefined;
 
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const lightboxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -72,13 +75,6 @@ export default function ProjectPage() {
           </h1>
           <p className="text-sm text-neutral-400 lowercase">{project.date}</p>
         </div>
-
-        {/* Disciplines */}
-        {project.disciplines && (
-          <p className="text-xs text-neutral-400 uppercase font-semibold mb-4 tracking-wide">
-            {project.disciplines.join(", ")}
-          </p>
-        )}
 
         {/* Description */}
         <p className="text-sm leading-relaxed lowercase text-neutral-600 mb-8">
@@ -146,7 +142,7 @@ export default function ProjectPage() {
 
         {/* Embeds */}
         {project.embeds?.map((embed, i) => {
-          const sizes = EMBED_SIZES[embed.label] ?? { width: 860, height: 700 };
+          const sizes = EMBED_SIZES[embed.label] ?? { width: 700, height: 700 };
           const isSrc = Boolean(embed.src);
           const isGame = embed.label.includes("game");
 
@@ -156,37 +152,40 @@ export default function ProjectPage() {
                 — {embed.label}
               </p>
               <div
-                className="border border-neutral-200 overflow-auto"
-                style={{ height: `${sizes.height}px` }}
+                style={{
+                  width: `${sizes.width}px`,
+                  height: `${sizes.height}px`,
+                  maxWidth: "100%",
+                  border: "1px solid #e5e5e5",
+                  overflow: isGame ? "hidden" : "auto",
+                }}
               >
-                <div style={{ width: `${sizes.width}px`, height: "100%" }}>
-                  {isSrc ? (
-                    <iframe
-                      src={embed.src}
-                      title={embed.label}
-                      style={{
-                        width: `${sizes.width}px`,
-                        height: "100%",
-                        border: "none",
-                        display: "block",
-                      }}
-                      scrolling={isGame ? "no" : "yes"}
-                    />
-                  ) : (
-                    <iframe
-                      srcDoc={(embed as { html?: string }).html}
-                      title={embed.label}
-                      sandbox="allow-scripts allow-same-origin"
-                      style={{
-                        width: `${sizes.width}px`,
-                        height: "100%",
-                        border: "none",
-                        display: "block",
-                      }}
-                      scrolling={isGame ? "no" : "yes"}
-                    />
-                  )}
-                </div>
+                {isSrc ? (
+                  <iframe
+                    src={embed.src}
+                    title={embed.label}
+                    style={{
+                      width: `${sizes.width}px`,
+                      height: `${sizes.height}px`,
+                      border: "none",
+                      display: "block",
+                    }}
+                    scrolling={isGame ? "no" : "yes"}
+                  />
+                ) : (
+                  <iframe
+                    srcDoc={embed.html}
+                    title={embed.label}
+                    sandbox="allow-scripts allow-same-origin"
+                    style={{
+                      width: `${sizes.width}px`,
+                      height: `${sizes.height}px`,
+                      border: "none",
+                      display: "block",
+                    }}
+                    scrolling={isGame ? "no" : "yes"}
+                  />
+                )}
               </div>
             </div>
           );
@@ -199,7 +198,17 @@ export default function ProjectPage() {
       {/* Lightbox */}
       {lightboxSrc && (
         <div
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 cursor-zoom-out p-4"
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "rgba(0,0,0,0.85)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+            cursor: "zoom-out",
+            padding: "16px",
+          }}
           onClick={() => setLightboxSrc(null)}
         >
           {isVideo(lightboxSrc) ? (
@@ -207,14 +216,22 @@ export default function ProjectPage() {
               src={lightboxSrc}
               controls
               autoPlay
-              className="max-w-full max-h-[90vh] object-contain"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "90vh",
+                objectFit: "contain",
+              }}
               onClick={(e) => e.stopPropagation()}
             />
           ) : (
             <img
               src={lightboxSrc}
               alt="close up"
-              className="max-w-full max-h-[90vh] object-contain"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "90vh",
+                objectFit: "contain",
+              }}
               onClick={(e) => e.stopPropagation()}
             />
           )}
