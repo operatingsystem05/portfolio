@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CodeEmbed from "../components/CodeEmbed";
 import { projects } from "../data/projects";
@@ -24,8 +24,6 @@ type ProjectExtended = (typeof projects)[number] & {
   imageContain?: boolean;
 };
 
-// Width = content width of the HTML file itself
-// Height = how tall the iframe container should be
 const EMBED_SIZES: Record<string, { width: number; height: number }> = {
   "exits — the blog": { width: 700, height: 900 },
   "sweep my mind — the game": { width: 540, height: 600 },
@@ -42,7 +40,6 @@ export default function ProjectPage() {
     | undefined;
 
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
-  const lightboxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -68,6 +65,7 @@ export default function ProjectPage() {
   return (
     <div className="min-h-screen bg-white text-black font-sans">
       <div className={`${maxWidth} w-full mx-auto px-5 py-8 sm:px-6 sm:py-10`}>
+
         {/* Title + date */}
         <div className="mb-4">
           <h1 className="text-base font-bold uppercase leading-tight tracking-wide">
@@ -174,7 +172,7 @@ export default function ProjectPage() {
                   />
                 ) : (
                   <iframe
-                    srcDoc={embed.html}
+                    srcDoc={(embed as { html?: string }).html}
                     title={embed.label}
                     sandbox="allow-scripts allow-same-origin"
                     style={{
@@ -216,22 +214,14 @@ export default function ProjectPage() {
               src={lightboxSrc}
               controls
               autoPlay
-              style={{
-                maxWidth: "100%",
-                maxHeight: "90vh",
-                objectFit: "contain",
-              }}
+              style={{ maxWidth: "100%", maxHeight: "90vh", objectFit: "contain" }}
               onClick={(e) => e.stopPropagation()}
             />
           ) : (
             <img
               src={lightboxSrc}
               alt="close up"
-              style={{
-                maxWidth: "100%",
-                maxHeight: "90vh",
-                objectFit: "contain",
-              }}
+              style={{ maxWidth: "100%", maxHeight: "90vh", objectFit: "contain" }}
               onClick={(e) => e.stopPropagation()}
             />
           )}
