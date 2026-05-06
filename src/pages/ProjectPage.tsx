@@ -24,9 +24,9 @@ type ProjectExtended = (typeof projects)[number] & {
   imageContain?: boolean;
 };
 
-const EMBED_SIZES: Record<string, { width: number; height: number }> = {
-  "exits — the blog": { width: 700, height: 900 },
-  "sweep my mind — the game": { width: 540, height: 600 },
+const EMBED_HEIGHTS: Record<string, number> = {
+  "exits — the blog": 850,
+  "sweep my mind — the game": 620,
 };
 
 function isVideo(src: string) {
@@ -60,7 +60,7 @@ export default function ProjectPage() {
   const images: string[] =
     project.images ?? (project.image ? [project.image] : []);
 
-  const maxWidth = project.wide ? "max-w-[960px]" : "max-w-[520px]";
+  const maxWidth = project.wide ? "max-w-[1100px]" : "max-w-[520px]";
 
   return (
     <div className="min-h-screen bg-white text-black font-sans">
@@ -140,9 +140,10 @@ export default function ProjectPage() {
 
         {/* Embeds */}
         {project.embeds?.map((embed, i) => {
-          const sizes = EMBED_SIZES[embed.label] ?? { width: 700, height: 700 };
+          const height = EMBED_HEIGHTS[embed.label] ?? 700;
           const isSrc = Boolean(embed.src);
           const isGame = embed.label.includes("game");
+          const embedWidth = isGame ? "820px" : "100%";
 
           return (
             <div key={i} className="mb-10">
@@ -151,9 +152,8 @@ export default function ProjectPage() {
               </p>
               <div
                 style={{
-                  width: `${sizes.width}px`,
-                  height: `${sizes.height}px`,
-                  maxWidth: "100%",
+                  width: embedWidth,
+                  height: `${height}px`,
                   border: "1px solid #e5e5e5",
                   overflow: isGame ? "hidden" : "auto",
                 }}
@@ -163,8 +163,8 @@ export default function ProjectPage() {
                     src={embed.src}
                     title={embed.label}
                     style={{
-                      width: `${sizes.width}px`,
-                      height: `${sizes.height}px`,
+                      width: embedWidth,
+                      height: "100%",
                       border: "none",
                       display: "block",
                     }}
@@ -176,8 +176,8 @@ export default function ProjectPage() {
                     title={embed.label}
                     sandbox="allow-scripts allow-same-origin"
                     style={{
-                      width: `${sizes.width}px`,
-                      height: `${sizes.height}px`,
+                      width: embedWidth,
+                      height: "100%",
                       border: "none",
                       display: "block",
                     }}
