@@ -65,7 +65,6 @@ export default function ProjectPage() {
   return (
     <div className="min-h-screen bg-white text-black font-sans">
       <div className={`${maxWidth} w-full mx-auto px-5 py-8 sm:px-6 sm:py-10`}>
-
         {/* Title + date */}
         <div className="mb-4">
           <h1 className="text-base font-bold uppercase leading-tight tracking-wide">
@@ -175,7 +174,7 @@ export default function ProjectPage() {
                     />
                   ) : (
                     <iframe
-                      srcDoc={embed.html}
+                      srcDoc={(embed as { html?: string }).html}
                       title={embed.label}
                       sandbox="allow-scripts allow-same-origin"
                       style={{
