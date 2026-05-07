@@ -7,13 +7,18 @@ type Project = (typeof projects)[number] & {
 };
 
 function openProject(project: Project) {
-  const w = project.wide ? 960 : 500;
-  const h = project.wide ? 900 : 800;
-  window.open(
-    `/projects/${project.slug}`,
-    `project-${project.slug}`,
-    `width=${w},height=${h},menubar=no,toolbar=no,location=no,status=no,resizable=yes,scrollbars=yes`,
-  );
+  const isMobile = window.innerWidth < 768;
+  if (isMobile) {
+    window.location.href = `/projects/${project.slug}`;
+  } else {
+    const w = project.wide ? 1100 : 500;
+    const h = project.wide ? 900 : 800;
+    window.open(
+      `/projects/${project.slug}`,
+      `project-${project.slug}`,
+      `width=${w},height=${h},menubar=no,toolbar=no,location=no,status=no,resizable=yes,scrollbars=yes`,
+    );
+  }
 }
 
 const sortedProjects = [...(projects as Project[])].reverse();
@@ -29,7 +34,6 @@ export default function Home() {
         >
           {/* LEFT — title + meta + summary */}
           <div className="flex flex-row gap-4 md:gap-6 flex-1 min-w-0">
-
             {/* Title + wip/rejected */}
             <div className="w-[140px] md:w-[160px] flex-shrink-0">
               <p className="text-sm font-bold uppercase leading-tight tracking-wide text-black group-hover:text-red-600 transition-colors">
@@ -37,10 +41,14 @@ export default function Home() {
               </p>
               <div className="flex gap-2 mt-1">
                 {p.wip && (
-                  <span className="text-[10px] text-green-600 font-mono">wip</span>
+                  <span className="text-[10px] text-green-600 font-mono">
+                    wip
+                  </span>
                 )}
                 {p.rejected && (
-                  <span className="text-[10px] text-red-500 font-mono">rejected</span>
+                  <span className="text-[10px] text-red-500 font-mono">
+                    rejected
+                  </span>
                 )}
               </div>
             </div>
