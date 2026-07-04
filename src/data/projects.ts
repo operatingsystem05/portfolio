@@ -143,12 +143,42 @@ export const projects = [
     title: "Dyke March Speech",
     date: "2026",
     disciplines: ["writing"],
-    summary: "Speech for Dyke March (2026).",
+    summary: "Speech for Dyke March.",
     description:
       "Visual identity and cover design for Zaydan's debut EP 'L'ombre'. The work includes the EP cover, the single cover for 'Coincé', and custom title design.",
     image: "/mic.webp",
     pdfs: [{ label: "speech:", file: "/speech.pdf" }],
     wip: true,
+  },
+
+  {
+    slug: "event-photography",
+    title: "Event Photography",
+    date: "2026",
+    disciplines: ["photography"],
+    summary: "Live event photography for Back to the Roots and B.R.A.V.E..",
+    description:
+      "Event photography for Back to the Roots' Pride Bloc Party and B.R.A.V.E.'s Boutures festival.",
+    image: "/_1040733.jpg",
+    images: [
+      "/_1020996.jpg",
+      "/_1030172.jpg",
+      "/_1030959.jpg",
+      "/_1030967.jpg",
+      "/_1040016.jpg",
+      "/_1040218.jpg",
+      "/_1040250.jpg",
+      "/_1040295.jpg",
+      "/_1040368.jpg",
+      "/_1040602.jpg",
+      "/_1040720.jpg",
+      "/_1040732.jpg",
+      "/_1040733.jpg",
+      "/_1040813.jpg",
+      "/_1040838.jpg",
+      "/_1040956.jpg",
+      "/_1050195.jpg",
+    ],
   },
 
   {
