@@ -148,7 +148,7 @@ export const projects = [
       "Visual identity and cover design for Zaydan's debut EP 'L'ombre'. The work includes the EP cover, the single cover for 'Coincé', and custom title design.",
     image: "/mic.webp",
     pdfs: [{ label: "speech:", file: "/speech.pdf" }],
-    wip: true,
+    wip: false,
   },
 
   {
