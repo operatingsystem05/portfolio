@@ -19,14 +19,15 @@ type ProjectExtended = (typeof projects)[number] & {
   code?: { html?: string; css?: string; js?: string };
   embeds?: Embed[];
   downloads?: Download[];
+  pdfs?: Download[];
   wide?: boolean;
   summary?: string;
   imageContain?: boolean;
 };
 
 const EMBED_HEIGHTS: Record<string, number> = {
-  "exits — the blog": 850,
-  "sweep my mind — the game": 620,
+  "exits (blog)": 850,
+  "sweep my mind (game)": 620,
 };
 
 function isVideo(src: string) {
@@ -57,15 +58,17 @@ export default function ProjectPage() {
     );
   }
 
-  const images: string[] =
-    project.images ?? (project.image ? [project.image] : []);
+  // `project.image` is the card/thumbnail image used elsewhere (e.g. the home
+  // grid) — only an explicit `images` array should render in the detail-page
+  // gallery, otherwise the thumbnail leaks in for projects that only have a
+  // pdf/embed and no real gallery (e.g. Dyke March Speech's mic.webp).
+  const images: string[] = project.images ?? [];
 
   const maxWidth = project.wide ? "max-w-[1100px]" : "max-w-[520px]";
 
   return (
     <div className="min-h-screen bg-white text-black font-sans">
       <div className={`${maxWidth} w-full mx-auto px-5 py-8 sm:px-6 sm:py-10`}>
-
         {/* Title + date */}
         <div className="mb-4">
           <h1 className="text-base font-bold uppercase leading-tight tracking-wide">
@@ -99,12 +102,12 @@ export default function ProjectPage() {
         {/* Images / videos */}
         {images.length > 0 && (
           <div className="mb-10">
-            <div className="grid grid-cols-3 gap-1.5">
+            <div className="columns-3 gap-1.5">
               {images.map((src, i) =>
                 isVideo(src) ? (
                   <div
                     key={i}
-                    className="aspect-square overflow-hidden cursor-pointer"
+                    className="mb-1.5 break-inside-avoid cursor-pointer overflow-hidden"
                     onClick={() => setLightboxSrc(src)}
                   >
                     <video
@@ -113,23 +116,19 @@ export default function ProjectPage() {
                       loop
                       autoPlay
                       playsInline
-                      className="w-full h-full object-cover"
+                      className="w-full h-auto block"
                     />
                   </div>
                 ) : (
                   <button
                     key={i}
                     onClick={() => setLightboxSrc(src)}
-                    className="block w-full cursor-zoom-in overflow-hidden"
+                    className="mb-1.5 block w-full break-inside-avoid cursor-zoom-in overflow-hidden border-0 outline-none bg-transparent p-0 appearance-none"
                   >
                     <img
                       src={src}
                       alt={`${project.title} ${i + 1}`}
-                      className={`w-full transition duration-300 ${
-                        project.imageContain
-                          ? "object-contain"
-                          : "aspect-square object-cover"
-                      }`}
+                      className="w-full h-auto transition duration-300 block"
                     />
                   </button>
                 ),
@@ -148,7 +147,7 @@ export default function ProjectPage() {
           return (
             <div key={i} className="mb-10">
               <p className="text-xs text-neutral-400 font-mono mb-2 lowercase tracking-wide">
-                — {embed.label}
+                {embed.label}
               </p>
               <div
                 style={{
@@ -189,6 +188,25 @@ export default function ProjectPage() {
           );
         })}
 
+        {/* PDFs — inline viewer only, no download button */}
+        {project.pdfs?.map((pdf, i) => (
+          <div key={i} className="mb-10">
+            <p className="text-xs text-neutral-400 font-mono mb-2 lowercase tracking-wide">
+              {pdf.label}
+            </p>
+            <iframe
+              src={`${pdf.file}#toolbar=0&navpanes=0`}
+              title={pdf.label}
+              style={{
+                width: "100%",
+                height: "800px",
+                border: "0px",
+                display: "block",
+              }}
+            />
+          </div>
+        ))}
+
         {/* Code embed */}
         {project.code && <CodeEmbed files={project.code} />}
       </div>
@@ -214,14 +232,22 @@ export default function ProjectPage() {
               src={lightboxSrc}
               controls
               autoPlay
-              style={{ maxWidth: "100%", maxHeight: "90vh", objectFit: "contain" }}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "90vh",
+                objectFit: "contain",
+              }}
               onClick={(e) => e.stopPropagation()}
             />
           ) : (
             <img
               src={lightboxSrc}
               alt="close up"
-              style={{ maxWidth: "100%", maxHeight: "90vh", objectFit: "contain" }}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "90vh",
+                objectFit: "contain",
+              }}
               onClick={(e) => e.stopPropagation()}
             />
           )}
