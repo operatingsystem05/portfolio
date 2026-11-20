@@ -14,19 +14,6 @@ export const projects = [
   },
 
   {
-    slug: "vestiaire",
-    title: "Vestiaire",
-    date: "2026",
-    disciplines: ["logo design, brand identity, poster design"],
-    summary: "Visual identity for night life prototype.",
-    description:
-      "Visual identity and poster design for Vestiaire, a noctural prototype of a cultural center by era, developed in collaboration with Decoratelier, Alwakan and Charleroi danse. I designed the logo, various visuals and 2 posters. ",
-    image: "/vestiaire.png",
-    images: ["/logo-text.png", "/spiraling.png", "/fortune.png"],
-    wip: false,
-  },
-
-  {
     slug: "jin-brand-identity",
     title: "Jin - audiovisual studio",
     date: "2021",
@@ -216,4 +203,19 @@ export const projects = [
       { label: "Sweep my mind (the game)", src: "/mindsweeperr.html" },
     ],
   },
+
+  
+  {
+    slug: "vestiaire",
+    title: "Vestiaire",
+    date: "2026",
+    disciplines: ["logo design, brand identity, poster design"],
+    summary: "Visual identity for night life prototype.",
+    description:
+      "Visual identity and poster design for Vestiaire, a noctural prototype of a cultural center by era, developed in collaboration with Decoratelier, Alwakan and Charleroi danse. I designed the logo, various visuals and 2 posters. ",
+    image: "/vestiaire.png",
+    images: ["/logo-text.png", "/spiraling.png", "/fortune.png"],
+    wip: false,
+  },
+
 ];
