@@ -152,6 +152,31 @@ export const projects = [
   },
 
   {
+    slug: "open-call",
+    title: "Open call cards",
+    date: "2026",
+    disciplines: [
+      "poster design",
+      "print design"
+    ],
+    summary:
+      "9 language open call cards that fold into 3 languages, making up 3 different sets of cards, a collaboration between Kortrijk Theater and Buda and Qommunity",
+    description:
+      "Open call promotional material for an artistic residency experimenting with physicality and typography.",
+    image: "/o.png",
+    images: [
+      "/eng.png",
+      "/eng2.png",
+      "/fr.png",
+      "/fr2.png",
+      "/tur.png",
+      "/tur2.png",
+      "/ar.png",
+      "/ar2.png"
+    ],
+  },
+
+  {
     slug: "event-photography",
     title: "Event Photography",
     date: "2026",
