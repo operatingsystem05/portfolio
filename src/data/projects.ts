@@ -1,5 +1,4 @@
 export const projects = [
-  // ── ordered oldest → newest so .reverse() in Home gives newest first ──
 
   {
     slug: "morocco-ep-cover",
@@ -160,9 +159,9 @@ export const projects = [
       "print design"
     ],
     summary:
-      "9 language open call cards that fold into 3 languages, making up 3 different sets of cards, a collaboration between Kortrijk Theater and Buda and Qommunity",
-    description:
       "Open call promotional material for an artistic residency experimenting with physicality and typography.",
+    description:
+      "9 language open call cards that fold into 3 languages, making up 3 different sets of cards, a collaboration between Kortrijk Theater and Buda and Queers On The Move.",
     image: "/o.png",
     images: [
       "/eng.png",
